@@ -1,0 +1,26 @@
+---
+# tasks file for ansible-role-php-modules
+- debug:
+    msg: System {{ php_modules }} 
+- debug:
+    msg: System {{ packages }} 
+
+- name: "Install app"
+  yum:
+    name: "{{ packages }}"
+    state: present
+
+- name: "Add Remi's repository for Enterprise Linux"
+  yum_repository:
+    name: remi-php72
+    description: Remi's repository for Enterprise Linux
+    mirrorlist: http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+    enabled: yes
+    gpgcheck: 1
+    gpgkey: http://rpms.remirepo.net/RPM-GPG-KEY-remi
+
+- name: "Install php modules"
+  yum:
+    name: "{{ php_modules }}"
+    state: present
+    update_cache: yes

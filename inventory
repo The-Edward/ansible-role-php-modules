@@ -1,0 +1,2 @@
+[test]
+192.168.111.34  ansible_user=root
