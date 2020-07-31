@@ -10,14 +10,34 @@
     name: "{{ packages }}"
     state: present
 
-- name: "Add Remi's repository for Enterprise Linux"
-  yum_repository:
-    name: remi-php72
-    description: Remi's repository for Enterprise Linux
-    mirrorlist: http://rpms.remirepo.net/enterprise/remi-release-7.rpm
-    enabled: yes
-    gpgcheck: 1
-    gpgkey: http://rpms.remirepo.net/RPM-GPG-KEY-remi
+# - name: "Add Remi's repository for Enterprise Linux"
+#   yum_repository:
+#     name: remi-php72
+#     description: Remi's repository for Enterprise Linux
+#     mirrorlist: http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+#     enabled: yes
+#     gpgcheck: 1
+#     gpgkey: http://rpms.remirepo.net/RPM-GPG-KEY-remi
+
+- name: Install EPEL repo.
+  yum:
+    name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm
+    state: present
+
+- name: Import EPEL GPG key.
+  rpm_key:
+    key: /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-{{ ansible_distribution_major_version }}
+    state: present
+
+- name: Install remi repo.
+  yum:
+    name: http://rpms.famillecollet.com/enterprise/remi-release-{{ ansible_distribution_major_version }}.rpm
+    state: present
+
+- name: Import remi GPG key.
+  rpm_key:
+    key: http://rpms.remirepo.net/RPM-GPG-KEY-remi
+    state: present
 
 - name: "Install php modules"
   yum:
