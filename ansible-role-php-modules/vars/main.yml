@@ -56,9 +56,9 @@ php_modules:
   - php72-php-xmlreader
   - php72-php-xmlwriter
   - php72-php-xsl
-  # - php72-php-zend
-  # - rh-php72-php-opcache
-  # - rh-php72-php-zip
+  - php-ZendFramework-full
+  - php72-php-opcache
+  - php-zip
   - php72-php-zlib
 
 
