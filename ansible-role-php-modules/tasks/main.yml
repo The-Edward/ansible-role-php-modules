@@ -19,28 +19,56 @@
 #     gpgcheck: 1
 #     gpgkey: http://rpms.remirepo.net/RPM-GPG-KEY-remi
 
-- name: Install EPEL repo.
+- name: "Install EPEL repo."
   yum:
     name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm
     state: present
+  tags: install_php
 
-- name: Import EPEL GPG key.
+- name: "Import EPEL GPG key."
   rpm_key:
     key: /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-{{ ansible_distribution_major_version }}
     state: present
+  tags: install_php
 
-- name: Install remi repo.
+- name: "Install remi repo."
   yum:
     name: http://rpms.famillecollet.com/enterprise/remi-release-{{ ansible_distribution_major_version }}.rpm
     state: present
+  tags: install_php
 
-- name: Import remi GPG key.
+- name: "Import remi GPG key."
   rpm_key:
     key: http://rpms.remirepo.net/RPM-GPG-KEY-remi
     state: present
+  tags: install_php
 
 - name: "Install php modules"
   yum:
     name: "{{ php_modules }}"
     state: present
     update_cache: yes
+  tags: install_php
+
+- name: "Create b2c users"
+  become: true
+  user:
+    name: "b2c"
+    shell: /bin/bash
+    groups: wheel
+    create_home: True
+    update_password: on_create
+    state: present
+  tags: user
+
+- name: "Crontab | Add cron to b2c"
+  cron:
+    name: "{{ item.job }}"
+    user: "b2c"
+    minute: "{{ item.minute | default('*')}}"
+    hour: "{{ item.hour | default('*') }}"
+    day: "{{ item.day | default('*') }}"
+    weekday: "{{ item.weekday | default('*') }}"
+    job: "{{ item.job }}"
+  loop: "{{ cron_jobs }}"
+  tags: crontab
