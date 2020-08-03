@@ -1,0 +1,24 @@
+---
+# tasks file for ansible-role-cron-worker
+- name: "Create b2c users"
+  become: true
+  user:
+    name: "b2c"
+    shell: /bin/bash
+    groups: wheel
+    create_home: True
+    update_password: on_create
+    state: present
+  tags: user
+
+- name: "Crontab | Add cron to b2c"
+  cron:
+    name: "{{ item.job }}"
+    user: "b2c"
+    minute: "{{ item.minute | default('*')}}"
+    hour: "{{ item.hour | default('*') }}"
+    day: "{{ item.day | default('*') }}"
+    weekday: "{{ item.weekday | default('*') }}"
+    job: "{{ item.job }}"
+  loop: "{{ cron_jobs }}"
+  tags: crontab

@@ -1,0 +1,95 @@
+---
+# vars file for ansible-role-cron-worker
+
+cron_jobs:
+  - job: "/usr/bin/php /srv/b2c/project/releases/current/yii daemon/run-job-queue-api >> /srv/b2c/cron/cron_logs/cron.log 2>&"
+  - job: "/usr/bin/php /srv/b2c/project/releases/current/yii daemon/run-job-queue-email >> /srv/b2c/cron/cron_logs/cron.log 2>&"
+  - job: "/usr/bin/php /srv/b2c/project/releases/current/yii daemon/run-job-queue-error >> /srv/b2c/cron/cron_logs/cron.log 2>&"
+  - job: "/usr/bin/php /srv/b2c/project/releases/current/yii daemon/run-job-queue-sms >> /srv/b2c/cron/cron_logs/cron.log 2>&"
+  - job: "/usr/bin/php /srv/b2c/project/releases/current/yii daemon/run-job-queue-id-sokolov >> /srv/b2c/cron/cron_logs/cron.log 2>&"
+  - job: "/usr/bin/php /srv/b2c/project/releases/current/yii daemon/run-job-queue-bonus >> /srv/b2c/cron/cron_logs/cron.log 2>&"
+  # - job: "/usr/bin/php /srv/b2c/project/releases/current/yii daemon/kit-online-send-checks >> /srv/b2c/cron/cron_logs/cron.log 2>&"
+  - job: "/usr/bin/php /srv/b2c/project/releases/current/yii daemon/kit-online-send-checks-refund >> /srv/b2c/cron/cron_logs/cron.log 2>&"
+  - job: "/usr/bin/php /srv/b2c/project/releases/current/yii daemon/kit-online-send-full-payment-check >> /srv/b2c/cron/cron_logs/cron.log 2>&"
+  - job: "/usr/bin/php /srv/b2c/project/releases/current/yii daemon/activate-order >> /srv/b2c/cron/cron_logs/cron.log 2>&"
+  - job: "/usr/bin/php /srv/b2c/project/releases/current/yii daemon/overdue-status-item >> /srv/b2c/cron/cron_logs/cron.log 2>&1"
+  # - job: "*/30 * * * * /usr/bin/php /srv/b2c/project/releases/current/yii daemon/get-delivery-statuses >> /srv/b2c/cron/cron_logs/cron.log 2>&1"
+    # minute: "*/30"
+  - job: "/usr/bin/php /srv/b2c/project/releases/current/yii daemon/get-delivery-statuses >> /srv/b2c/cron/cron_logs/cron.log 2>&1"
+    minute: 30
+    hour: 21
+  - job: "/usr/bin/php /srv/b2c/project/releases/current/yii daemon/get-delivery-info >> /srv/b2c/cron/cron_logs/cron.log 2>&1"
+    minute: 0
+    hour: 4
+  - job: "/usr/bin/php /srv/b2c/project/releases/current/yii daemon/clear-login-control >> /srv/b2c/cron/cron_logs/cron.log 2>&1"
+    minute: 0
+    hour: 4
+    day: 1
+  - job: "/usr/bin/php /srv/b2c/project/releases/current/yii daemon/run-- job-queue-clear >> /srv/b2c/cron/cron_logs/cron.log 2>&1"
+    minute: 0
+    hour: 5
+    day: 1
+  - job: "/usr/bin/php /srv/b2c/project/releases/current/yii daemon/clear-basket >> /srv/b2c/cron/cron_logs/cron.log 2>&1"
+    minute: 05
+    hour: 0
+  - job: "/usr/bin/php /srv/b2c/project/releases/current/yii daemon/clear-favorites >> /srv/b2c/cron/cron_logs/cron.log 2>&1"
+    minute: 10
+    hour: 0
+  - job: "/usr/bin/php /srv/b2c/project/releases/current/yii daemon/send-prolong-reserve-messages >> /srv/b2c/cron/cron_logs/cron.log 2>&1"
+    minute: 0
+    hour: 10
+  - job: "/usr/bin/php /srv/b2c/project/releases/current/yii daemon/cancel-overdue-reserve >> /srv/b2c/cron/cron_logs/cron.log 2>&1"
+    minute: 15
+    hour: 10
+  - job: "/usr/bin/php /srv/b2c/project/releases/current/yii daemon/refresh-silver-ware >> /srv/b2c/cron/cron_logs/cron.log 2>&1"
+    minute: 0
+    hour: 2
+  - job: "/usr/bin/php /srv/b2c/project/releases/current/yii daemon/refresh-watches >> /srv/b2c/cron/cron_logs/cron.log 2>&1"
+    minute: 0
+    hour: 3
+  - job: "/usr/bin/php /srv/b2c/project/releases/current/yii daemon/refresh-jewelry >> /srv/b2c/cron/cron_logs/cron.log 2>&1"
+    minute: 0
+    hour: 4
+  - job: "/usr/bin/php /srv/b2c/project/releases/current/yii daemon/lucksa-stocks-report >> /srv/b2c/cron/cron_logs/cron.log 2>&1"
+    minute: 0
+    hour: 1
+  - job: "/usr/bin/php /srv/b2c/project/releases/current/yii daemon/sitemap-new >> /srv/b2c/cron/cron_logs/cron.log 2>&1"
+    minute: 0
+  - job: "/usr/bin/php /srv/b2c/project/releases/current/yii daemon/sitemap-new >> /srv/b2c/cron/cron_logs/cron.log 2>&1"
+    minute: 45
+  - job: "/usr/bin/php /srv/b2c/project/releases/current/yii daemon/sitemap >> /srv/b2c/cron/cron_logs/cron.log 2>&1"
+    minute: 0
+    hour: 6
+  - job: "/usr/bin/php /srv/b2c/project/releases/current/yii daemon/daily-roll >> /srv/b2c/cron/cron_logs/cron.log 2>&1"
+    minute: 55
+    hour: 21
+  - job: "/usr/bin/php /srv/b2c/project/releases/current/yii daemon/add-orders-xml >> /srv/b2c/cron/cron_logs/cron.log 2>&1"
+    minute: 10
+    hour: 21
+    weekday: 1
+  - job: "/usr/bin/php /srv/b2c/project/releases/current/yii daemon/update-points-issue-orders >> /srv/b2c/cron/cron_logs/cron.log 2>&1"
+    minute: 0
+    hour: 1
+  # - job: "#0 8 * * *  /usr/bin/php /srv/b2c/project/releases/current/yii processing/check-photo-by-products >> /srv/b2c/cron/cron_logs/cron.log 2>&1"
+  #   minute: 0
+  #   hour: 8
+  # - job: "#0 17 * * * /usr/bin/php /srv/b2c/project/releases/current/yii processing/check-photo-by-products >> /srv/b2c/cron/cron_logs/cron.log 2>&1"
+    # minute: 0
+    # hour: 17
+  - job: "/usr/bin/php /srv/b2c/project/releases/current/yii daemon/notification-availability >> /srv/b2c/cron/cron_logs/cron.log 2>&1"
+    minute: 0
+    hour: 8-22/3
+  - job: "/usr/bin/php /srv/b2c/project/releases/current/yii daemon/get-page-speed-info >> /srv/b2c/cron/cron_logs/cron.log 2>&1"
+    minute: 00
+    hour: 07
+  - job: "/usr/bin/php /srv/b2c/project/releases/current/yii daemon/get-page-speed-info >> /srv/b2c/cron/cron_logs/cron.log 2>&1"
+    minute: 00
+    hour: 14
+  - job: "/usr/bin/php /srv/b2c/project/releases/current/yii daemon/send-text-to-webmaster >> /srv/b2c/cron/cron_logs/cron.log 2>&1"
+    minute: 05
+    hour: 1
+  - job: "/usr/bin/php /srv/b2c/project/releases/current/yii daemon/import-comment >> /srv/b2c/cron/cron_logs/cron.log 2>&1"
+    minute: 0
+    hour: 2
+  - job: "/usr/bin/php /srv/b2c/project/releases/current/yii daemon/winter-sale-import >> /srv/b2c/cron/cron_logs/cron.log 2>&1"
+    minute: "*/5"
